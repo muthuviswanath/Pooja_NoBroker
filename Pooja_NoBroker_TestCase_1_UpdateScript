@@ -38,6 +38,6 @@ public class NoBrokerCheck {
         //Change the Yoffset value to 70 to choose Ready
         actions.moveToElement(drv.findElement(By.xpath("//div[contains(@class,'nb-select__placeholder')][text()='Property Status']"))).moveByOffset(xOffset, 70).click().perform();
         Thread.sleep(3000);
-        
+        drv.findElement(By.xpath("//button[text()='Search']")).click();
 	}
 }
