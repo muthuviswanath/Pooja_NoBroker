@@ -1,0 +1,129 @@
+package com.pages;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.parameter.ExcelReader;
+
+public class AddProprety 
+{
+	WebDriver driver;
+	
+	@FindBy(xpath=("//button[text()='Post Free Property Ad']"))
+	private WebElement add_property;
+	
+	@FindBy(xpath=("//input[@id='userName']"))
+	private WebElement add_name;
+	
+	@FindBy(xpath=("//input[@id='userEmail']"))
+	private WebElement add_email;
+	
+	@FindBy(xpath=("//input[@id='userPhone']"))
+	private WebElement add_phone;
+	
+	@FindBy(xpath=("//div[@class='css-151xaom-placeholder nb-select__placeholder']"))
+	private WebElement add_city;
+	
+	@FindBy(xpath=("//div[contains(text(),'Residential')]"))
+	private WebElement add_residential;
+	
+	@FindBy(xpath=("//div[contains(text(),'Resale')]"))
+	private WebElement add_resale;
+	
+	@FindBy(xpath=("//button[contains(text(),'Start Posting Your Ad For FREE')]"))
+	private WebElement add_enter;
+
+	WebDriverWait wait;
+	
+	public AddProprety(WebDriver driver)                  //constructor
+	{
+		this.driver=driver;
+		PageFactory.initElements(driver, this);
+		
+	}
+	
+	public void choose_propertyTab()                         //Choose buy tab
+	{
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		add_property.click();
+	}
+	
+	public void name_tab()
+	{
+		add_name.click();
+		add_name.sendKeys(ExcelReader.getCellData("./src/test/resources/ExcelData/Data.xlsx","Sheet1",1,0));
+	}
+	
+	public void email_tab()
+	{
+		add_email.click();
+		add_email.sendKeys(ExcelReader.getCellData("./src/test/resources/ExcelData/Data.xlsx","Sheet1",1,1));
+	}
+	
+	public void phone_tab()
+	{
+		add_phone.click();
+		add_phone.sendKeys(ExcelReader.getCellData("./src/test/resources/ExcelData/Data.xlsx","Sheet1",1,2));
+	}
+	
+	public void city_tab()throws Exception
+	{
+    add_city.click();
+    Thread.sleep(3000);
+		wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		WebElement iframe = drv.findElement(By.xpath("//iframe[@id='webWidget']"));
+		if (iframe.isDisplayed()) {
+			drv.switchTo().frame(iframe);
+			WebElement minimizeButton = drv.findElement(By.xpath("//button[@aria-label='Minimize widget']"));
+			minimizeButton.click();
+			drv.switchTo().defaultContent();
+			Thread.sleep(2000);
+		}
+
+    Thread.sleep(2000);
+		select_city.click();
+		WebElement cityOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[text()='Mumbai']")));
+		cityOption.click();
+		// Click at Specific Coordinates
+		int xCoordinate = 1093;
+		int yCoordinate = 269;
+
+		RemoteWebDriver r = (RemoteWebDriver) drv;
+		String script = "var event = new MouseEvent('click', {" +
+				"bubbles: true, cancelable: true, view: window, " +
+				"clientX: " + xCoordinate + ", clientY: " + yCoordinate + " " +
+				"}); " +
+				"document.elementFromPoint(" + xCoordinate + ", " + yCoordinate + ").dispatchEvent(event);";
+
+		r.executeScript(script);
+		Thread.sleep(5000);
+		
+	}
+	
+	public void residenatial()
+	{
+		add_residential.click();
+	}
+	
+	public void resale()
+	{
+		add_resale.click();
+	}
+	
+	public void enter() throws InterruptedException
+	{
+		add_enter.click();
+		Thread.sleep(15000);
+	}
+	
+}
