@@ -1,0 +1,9 @@
+workflow:
+
+1.open web browser
+2.click buy tab
+3.choose city
+4.choose locality
+5.choose BHK type
+6.Choose property status    //not working 
+7.search

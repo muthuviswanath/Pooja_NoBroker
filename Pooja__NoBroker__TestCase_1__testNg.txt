@@ -1,0 +1,60 @@
+package com.test;
+
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeClass;
+import java.time.Duration;
+
+import org.openqa.selenium.WebDriver;
+import com.driverSetup.SetupDriver;
+import com.pages.BuyPage;
+import com.pages.LoginPage;
+import com.pages.*;
+public class BuyPageTestNG
+{
+	WebDriver driver;
+	LoginPage objloginpage;
+	BuyPage objBuypage;
+	
+	
+	@BeforeClass
+	public void init()
+	{
+		// Running the test script in chrome driver
+	    driver=SetupDriver.getDriver("chrome");
+		driver.navigate().to("https://www.nobroker.in/");
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		objloginpage = new LoginPage(driver);
+		driver.navigate().to(LoginPage.baseURL);	
+	}
+	
+	
+	@Test(priority=1)                        //Login using mobile no.
+	public void basePageAction() throws InterruptedException
+	{
+		Thread.sleep(2000);
+		objloginpage.login_page();
+	}
+	
+
+	@Test(priority=2)
+	public void Buy_Action() throws InterruptedException
+	{
+		objBuypage = new BuyPage(driver);
+		Thread.sleep(2000);
+		objBuypage.choose_Buy();
+		Thread.sleep(2000);
+		objBuypage.chooseLocation();
+		Thread.sleep(2000);
+		objBuypage.chooseLocality();    	
+		Thread.sleep(2000);    	
+		objBuypage.chooseBHk();
+    	 Thread.sleep(2000);
+ 	   //objBuypage.chooseProperty();
+  	   //  Thread.sleep(2000);
+    	objBuypage.search();
+ 	     Thread.sleep(2000);
+    
+    	
+	}
+}

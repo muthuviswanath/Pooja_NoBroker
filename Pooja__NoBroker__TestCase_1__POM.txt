@@ -1,0 +1,117 @@
+//Property section not working in Buy page
+//==========================================================================
+package com.pages;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class BuyPage
+{
+	WebDriver driver;
+	WebDriverWait wait;
+	
+	
+	@FindBy(xpath=("//div[contains(text(),'Buy')]"))
+	private WebElement buy_tab;
+	
+	@FindBy(xpath="//div[contains(text(),'Bangalore')]")
+	private WebElement location;
+	
+	@FindBy(xpath="//input[@id='listPageSearchLocality']")
+	private WebElement locality;
+	
+	@FindBy(xpath="/html/body/div[3]/div/div/div[2]/div[5]/div[1]/div/div/div/div/div[1]")
+	private WebElement bhk;
+	
+	//@FindBy(xpath="//div[contains(text(),'Property Type')]")
+	//private WebElement property;
+	
+	@FindBy(xpath="//button[contains(text(),'Search')]")
+	private WebElement search;
+	
+	
+	
+	
+	
+	public BuyPage(WebDriver driver)                  //constructor
+	{
+		this.driver=driver;
+		PageFactory.initElements(driver, this);
+		
+	}
+	
+	
+	public void choose_Buy()                         //Choose buy tab
+	{
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		buy_tab.click();
+	}
+	
+	
+	public void chooseLocation()                    //choose location
+	{
+		driver.findElement(By.xpath("//div[contains(text(),'Bangalore')]")).click();
+        Actions actions = new Actions(driver);
+        int xOffset = 50;
+        int yOffset = 50;
+        actions.moveToElement(driver.findElement(By.xpath("//div[contains(text(),'Bangalore')]"))).moveByOffset(xOffset, yOffset).click().perform();
+        
+    }
+	
+	
+	
+	public void chooseLocality()                         //choose locality
+	{
+        try {
+            locality.sendKeys("Airport");
+            Thread.sleep(3000);
+            Actions actions = new Actions(driver);
+            actions.moveToElement(locality).moveByOffset(50, 100).click().perform();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+	
+	
+	public void chooseBHk() throws InterruptedException
+	{
+	   
+		driver.findElement(By.className("nb-select__placeholder")).click();
+        Actions actions1 = new Actions(driver);
+        actions1.moveToElement(bhk).moveByOffset(50, 100).click().perform();
+        Thread.sleep(1000);
+		
+	}
+	
+//	public void chooseProperty()                         //choose property type
+//	{
+//	driver.findElement(By.xpath("//div[contains(text(),'Property Type')]")).click();
+//	 Actions actions2 = new Actions(driver);
+//    actions2.moveToElement(property).moveByOffset(50, 70).click().perform();
+//    property.click();
+//		
+//		//driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+//		//property.click();
+//	}
+  
+ 
+	
+	public void search() throws InterruptedException
+	{
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		search.click();
+		Thread.sleep(5000);
+		//driver.close();
+	}
+	
+	
+	
+	
+}
