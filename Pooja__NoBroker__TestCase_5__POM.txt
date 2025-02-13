@@ -1,0 +1,154 @@
+package com.pages;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+public class Tc_05
+{
+	WebDriver driver;
+	
+	
+	@FindBy(xpath=("//div[contains(text(),'Buy')]"))
+	private WebElement buy_tab;
+	
+	@FindBy(xpath="//div[contains(text(),'Bangalore')]")
+	private WebElement location;
+	
+	@FindBy(xpath="//input[@id='listPageSearchLocality']")
+	private WebElement locality;
+	
+	@FindBy(xpath="/html/body/div[3]/div/div/div[2]/div[5]/div[1]/div/div/div/div/div[1]")
+	private WebElement bhk;
+	
+	//@FindBy(xpath="//div[contains(text(),'Property Type')]")
+	//private WebElement property;
+	
+	@FindBy(xpath="//button[contains(text(),'Search')]")
+	private WebElement search;
+	
+	@FindBy(xpath="//input[@id='listPageSearchLocality']")
+	private WebElement secondtab;
+	
+	@FindBy(xpath="//span[contains(@class,'po:hidden tp:hidden float-right mt-2p')]//div//div//div[contains(@class,'flex items-center')]//div//*[contains(@class,'transform -rotate-90')]")
+	private WebElement buy_click;
+	
+	@FindBy(xpath="//div[contains(text(),'Pg/Hostel')]")
+	private WebElement choose_pg;
+	
+	@FindBy(xpath="/html/body/div[3]/div/main/div[1]/header/div[1]/div[5]/div[2]/a/img")
+	private WebElement shortlist;
+	
+	@FindBy(xpath="//input[@id='signUp-phoneNumber']")
+	private WebElement mobile;
+	
+	@FindBy(xpath="//button[@id='signUpSubmit']")
+	private WebElement submit;
+	
+	//div[@class='flex flex-wrap p-5 tab:p-4 gap-10 tab:gap-4 justify-center']/div
+	////div[@class='flex flex-wrap p-5 tab:p-4 gap-10 tab:gap-4 justify-center']/div/div[2]
+	
+	public Tc_05(WebDriver driver)                  //constructor
+	{
+		this.driver=driver;
+		PageFactory.initElements(driver, this);
+
+	}
+	public void choose_Buy()                         //Choose buy tab
+	{
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		buy_tab.click();
+	}
+	
+	
+	public void chooseLocation()                    //choose location
+	{
+		driver.findElement(By.xpath("//div[contains(text(),'Bangalore')]")).click();
+        Actions actions = new Actions(driver);
+        int xOffset = 50;
+        int yOffset = 50;
+        actions.moveToElement(driver.findElement(By.xpath("//div[contains(text(),'Bangalore')]"))).moveByOffset(xOffset, yOffset).click().perform();
+        
+    }
+	
+	
+	
+	public void chooseLocality()                         //choose locality
+	{
+        try {
+            locality.sendKeys("Airport");
+            Thread.sleep(3000);
+            Actions actions = new Actions(driver);
+            actions.moveToElement(locality).moveByOffset(50, 100).click().perform();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+	
+	
+	public void chooseBHk() throws InterruptedException
+	{
+	   
+		driver.findElement(By.className("nb-select__placeholder")).click();
+        Actions actions1 = new Actions(driver);
+        actions1.moveToElement(bhk).moveByOffset(50, 100).click().perform();
+        Thread.sleep(1000);
+		
+	}
+	
+	public void search() throws InterruptedException
+	{
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		search.click();
+		Thread.sleep(5000);
+		//driver.close();
+	}
+	
+	public void second() throws InterruptedException
+	{
+		Thread.sleep(3000);
+		secondtab.click();
+		
+		 try {
+	            secondtab.sendKeys("railway station");
+	            Thread.sleep(3000);
+	            Actions actions = new Actions(driver);
+	            actions.moveToElement(secondtab).moveByOffset(50, 80).click().perform();
+	            Thread.sleep(2000);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	}
+	
+	public void shortlist_property() throws InterruptedException
+	{
+		Thread.sleep(3000);
+		shortlist.click();
+		
+	}
+	
+	public void enter_mobile_no() throws InterruptedException
+	{
+		Thread.sleep(8000);
+		mobile.sendKeys("9623476074");
+		Thread.sleep(30000);
+		submit.click();
+	}
+	
+	public void scroll()
+	{
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("window.scrollBy(0,8000)");
+	}
+
+		
+
+}
+

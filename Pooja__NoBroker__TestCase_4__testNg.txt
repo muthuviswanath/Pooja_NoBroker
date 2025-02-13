@@ -1,0 +1,50 @@
+package com.test;
+
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeClass;
+import org.openqa.selenium.WebDriver;
+import com.driverSetup.SetupDriver;
+import com.pages.BuyPage;
+import com.pages.LoginPage;
+import com.pages.Tc_03;
+import com.pages.Tc_04;
+
+import java.time.Duration;
+
+import org.openqa.selenium.WebDriver;
+
+import com.driverSetup.SetupDriver;
+
+public class T04_TestNg 
+{
+	
+	WebDriver driver;
+	Tc_04 obj;
+	
+	@BeforeClass
+	public void init()
+	{
+		// Running the test script in chrome driver
+	    driver=SetupDriver.getDriver("chrome");
+		driver.navigate().to("https://www.nobroker.in/");
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+	}
+	
+	@Test(priority=1)
+	public void menu() throws InterruptedException
+	{
+		obj = new Tc_04(driver);
+		Thread.sleep(2000);
+		
+		obj.scroll();
+		Thread.sleep(8000);
+		
+		obj.click_image();
+		Thread.sleep(2000);
+		
+		
+
+	
+	}
+}

@@ -1,0 +1,53 @@
+package com.pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+public class Tc_04
+{
+	WebDriver driver;
+	
+	
+	@FindBy(xpath=("//a[contains(text(),'New Builder Project')]"))
+	private WebElement new_project;
+	
+	@FindBy(xpath=("//div[@class='flex flex-wrap p-5 tab:p-4 gap-10 tab:gap-4 justify-center']/div/div[2][contains(text(), 'Mumbai')]"))
+	private WebElement click_mumbai;
+
+	
+	public Tc_04(WebDriver driver)                  //constructor
+	{
+		this.driver=driver;
+		PageFactory.initElements(driver, this);
+
+	}
+	
+	public void scroll() throws InterruptedException
+	{
+		WebElement service_link = driver.findElement(By.xpath("//a[contains(text(),'New Builder Project')]"));
+		RemoteWebDriver rdrv = (RemoteWebDriver)driver;
+		rdrv.executeScript("window.scrollBy(0,(document.body.scrollHeight)-60)");
+		Thread.sleep(2000);
+		service_link.click();
+		
+	}
+	
+	public void project() throws InterruptedException
+	{
+		new_project.click();
+		Thread.sleep(3000);
+	}
+	
+	public void click_image() throws InterruptedException    //click image
+	{
+		
+		click_mumbai.click();
+	}
+
+}

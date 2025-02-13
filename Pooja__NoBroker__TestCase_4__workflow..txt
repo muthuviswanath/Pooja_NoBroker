@@ -1,0 +1,7 @@
+1.open browser
+2.scroll browser
+3.in nobroker service option choose new builder project tab
+4.choose city   //not able to choose city
+5.select lOCATION
+6.select  POSSESSION
+7.Select any project and click get more information
