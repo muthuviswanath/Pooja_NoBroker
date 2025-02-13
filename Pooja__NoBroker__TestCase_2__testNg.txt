@@ -1,0 +1,54 @@
+package com.test;
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeClass;
+import java.time.Duration;
+
+import org.openqa.selenium.WebDriver;
+import com.driverSetup.SetupDriver;
+import com.pages.*;
+
+
+public class Add02_Property_TestNg 
+{
+	WebDriver driver;
+	AddProprety objadd;
+	
+	@BeforeClass
+	public void init()
+	{
+	    // Running the test script in chrome driver
+	    driver=SetupDriver.getDriver("chrome");
+        driver.navigate().to("https://www.nobroker.in/");
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		
+	}
+	
+	
+	@Test(priority=1)
+	public void Add_Action() throws Exception
+	{
+		objadd = new  AddProprety(driver);
+		Thread.sleep(2000);
+		
+		objadd.choose_propertyTab();
+		Thread.sleep(1000);
+		objadd.name_tab();
+		Thread.sleep(2000);
+		objadd.email_tab();
+		Thread.sleep(2000);
+		objadd.phone_tab();
+		Thread.sleep(2000);
+		objadd.city_tab();
+		Thread.sleep(3000);
+		objadd.residenatial();
+		Thread.sleep(3000);
+		objadd.resale();
+		Thread.sleep(3000);
+		objadd.enter();
+		Thread.sleep(3000);
+		
+    }
+	
+
+}
